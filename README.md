@@ -1,73 +1,44 @@
-# ✈ WanderlustCo — MERN Travel Agency Website
+# WanderlustCo Travel Agency
 
-A full-stack travel agency web application built with the **MERN stack** (MongoDB, Express, React, Node.js). Features a beautiful dark-themed UI with interactive destination cards, admin dashboard, and complete user management.
+A full-stack MERN travel agency application with a React frontend and an Express + MongoDB backend.
 
----
+## Project Structure
 
-## 🗂 Project Structure
-
-```
+```text
 travel-agency/
-├── backend/                  # Express + MongoDB API
-│   ├── models/
-│   │   ├── User.js           # User schema (role: user | admin)
-│   │   ├── Place.js          # Destination/Tour schema
-│   │   ├── Service.js        # Services schema
-│   │   └── Contact.js        # Contact messages schema
-│   ├── routes/
-│   │   ├── auth.js           # Register, Login, Profile
-│   │   ├── places.js         # CRUD for destinations
-│   │   ├── services.js       # CRUD for services
-│   │   ├── contacts.js       # Contact form & admin view
-│   │   └── admin.js          # Admin stats, user management, seed
-│   ├── middleware/
-│   │   └── auth.js           # JWT protect + adminOnly guards
-│   ├── server.js             # Express app entry point
-│   └── .env.example          # Environment variable template
-│
-└── frontend/                 # React SPA
-    └── src/
-        ├── context/
-        │   └── AuthContext.js  # Global auth state (JWT + role)
-        ├── components/
-        │   ├── Navbar.js/.css  # Responsive navbar with user menu
-        │   ├── Footer.js/.css  # Footer with newsletter
-        │   └── PlaceCard.js/.css # Destination card component
-        └── pages/
-            ├── Home.js/.css          # Landing + featured + stats
-            ├── Places.js/.css        # All tours with filter menu bar
-            ├── Services.js/.css      # Services + packages + process
-            ├── LoginDashboard.js/.css # Auth + user dashboard
-            ├── AdminDashboard.js/.css # Admin-only panel (hidden from users)
-            ├── AboutUs.js/.css        # Team + values + timeline
-            ├── ContactUs.js/.css      # Contact form + FAQ
-            └── JoinUs.js/.css         # Multi-step registration
+|-- backend/                  # Express + MongoDB API
+|   |-- middleware/           # Auth and admin guards
+|   |-- models/               # Mongoose models
+|   |-- routes/               # API routes
+|   |-- server.js             # Express app entry point
+|   `-- .env.example          # Backend environment template
+`-- frontend/                 # React SPA
+    `-- src/
+        |-- components/       # Shared UI components
+        |-- context/          # Global auth state
+        `-- pages/            # Route-level pages
 ```
 
-
+## Stack
 
 ### Backend
-- **Express.js** — REST API
-- **Mongoose** — MongoDB ODM
-- **JWT** — Stateless authentication
-- **bcryptjs** — Password hashing
-- **Role-based access** — `user` and `admin` roles
+- Express.js
+- Mongoose
+- JSON Web Tokens
+- bcryptjs
+- Role-based access control
 
 ### Frontend
-- **React 18** — Component-based UI
-- **React Router v6** — Client-side routing
-- **Axios** — HTTP client
-- **Context API** — Global auth state
-- **Google Fonts** — Playfair Display + DM Sans
+- React 18
+- React Router v6
+- Axios
+- Context API
 
-### Design Features
-- 🌑 Dark theme with green & gold accent palette
-- 📱 Fully responsive (mobile, tablet, desktop)
-- 🎠 Animated hero with particle effects
-- 🃏 Interactive place cards with modal detail view
-- 🗂 Category filter menu bar for tours
-- 📊 Admin data tables with action buttons
-- 💬 Accordion FAQ component
-- ⏱ Multi-step registration form
-- 🔔 Toast notifications
+## Deployment Notes
 
+### Backend on Render
+- Use `cd backend && npm start` or `cd backend && yarn start` as the start command.
+- Avoid running `install` in the start command. Let Render install dependencies during the build step.
+- Set `MONGO_URI`, `JWT_SECRET`, and `CORS_ORIGINS` in the Render environment before deploying.
+- Render injects `PORT` automatically, so you do not need to hardcode it in the dashboard.
+- Check `GET /api/health` after deploy. The backend now binds its HTTP port immediately and reports config or database readiness there.

@@ -29,11 +29,17 @@ const config = {
   corsOrigins: parseCorsOrigins(process.env.CORS_ORIGINS)
 };
 
-export const validateConfig = () => {
+export const getMissingConfig = () => {
   const missing = [];
 
   if (!config.mongoUri) missing.push('MONGO_URI');
   if (!config.jwtSecret) missing.push('JWT_SECRET');
+
+  return missing;
+};
+
+export const validateConfig = () => {
+  const missing = getMissingConfig();
 
   if (missing.length > 0) {
     throw new Error(`Missing required environment variables: ${missing.join(', ')}`);

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getApiUrl } from '../api';
 import './LoginDashboard.css';
 
 export default function LoginDashboard() {
@@ -25,9 +26,7 @@ export default function LoginDashboard() {
         const u = await login(form.email, form.password);
         if (u.role === 'admin') navigate('/admin');
       } else {
-        await login;
-        const { useAuth: ua } = await import('../context/AuthContext');
-        const res = await fetch('/api/auth/register', {
+        const res = await fetch(getApiUrl('/api/auth/register'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name: form.name, email: form.email, password: form.password })

@@ -1,11 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import './AdminDashboard.css';
-
-<Link to="/admin/add-place">
-  <button>Add New Place</button>
-</Link>
 
 const AdminAddPlace = () => {
   const [formData, setFormData] = useState({
@@ -27,7 +22,7 @@ const AdminAddPlace = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/places/add", formData, {
+      await axios.post("/api/places/add", formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }
